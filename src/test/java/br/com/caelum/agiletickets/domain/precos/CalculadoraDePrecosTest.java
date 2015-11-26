@@ -176,7 +176,6 @@ public class CalculadoraDePrecosTest {
 				.build();
 
 		BigDecimal precoTotal = CalculadoraDePrecos.calcula(sessao, 1);
-		System.out.println("Preço aplicado: " + precoTotal);
 		
 		assertEquals(0, BigDecimal.valueOf(1300.0).compareTo(precoTotal));
 	}
