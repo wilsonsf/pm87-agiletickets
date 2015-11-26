@@ -2,6 +2,7 @@ package br.com.caelum.agiletickets.models;
 
 import static com.google.common.collect.Lists.newArrayList;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -129,5 +130,21 @@ public class Espetaculo {
        if (totDisp >= qtd) return true;
        else return false;
    }
+
+	double getLimitePercentualDeVagasParaAcrescimo() {
+		return tipo.getLimitePercentualDeVagasParaAcrescimo();
+	}
+	
+	BigDecimal getAcrescimoDeVagas() {
+		return BigDecimal.valueOf(tipo.getAcrescimoVagasRestantes());
+	}
+	
+	int getLimiteTempoParaAcrescimo() {
+		return tipo.getLimiteTempoParaAcrescimo();
+	}
+
+	BigDecimal getAcrescimoDeDuracao() {
+		return BigDecimal.valueOf(tipo.getAcrescimoDuracao());
+	}
 
 }
