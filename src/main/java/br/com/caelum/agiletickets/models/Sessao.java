@@ -113,4 +113,26 @@ public class Sessao {
 		return preco;
 	}
 	
+	public boolean deveAplicarAcrescimoDeVagas() {
+		return getIngressosDisponiveis() / getTotalIngressos().doubleValue() <= getEspetaculo().getTipo().getLimitePercentualDeVagasParaAcrescimo();
+	}
+	
+	public BigDecimal aplicaAcrescimoNaSessao() {
+		double acrescimo = 0;
+		if (deveAplicarAcrescimoDeVagas())
+			acrescimo += getAcrescimoDeVagas();
+//		if (deveAplicarAcrescimoDeDuracao())
+//			acrescimo += getAcrescimoDeDuracao();
+		return preco.add(preco.multiply(BigDecimal.valueOf(acrescimo)));
+	}
+	
+	public boolean deveAplicarAcrescimoDeDuracao() {
+		return getDuracaoEmMinutos() > getEspetaculo().getTipo().getLimiteTempoParaAcrescimo();
+	}
+	private double getAcrescimoDeVagas() {
+		return getEspetaculo().getTipo().getAcrescimoVagasRestantes();
+	}
+	private double getAcrescimoDeDuracao() {
+		return getEspetaculo().getTipo().getAcrescimoDuracao();
+	}
 }
