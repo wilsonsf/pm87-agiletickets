@@ -26,7 +26,7 @@ public class Sessao {
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime inicio;
 
-	private Integer duracaoEmMinutos;
+	private Integer duracaoEmMinutos = 0;
 
 	private Integer totalIngressos = 0;
 
@@ -91,6 +91,9 @@ public class Sessao {
 		return totalIngressos - ingressosReservados;
 	}
 	
+	private double getPercentualIngressosDisponiveis() {
+		return getIngressosDisponiveis() / totalIngressos.doubleValue();
+	}
 	
 
 	public void reserva(Integer numeroDeIngressos) {
@@ -113,26 +116,26 @@ public class Sessao {
 		return preco;
 	}
 	
-	public boolean deveAplicarAcrescimoDeVagas() {
-		return getIngressosDisponiveis() / getTotalIngressos().doubleValue() <= getEspetaculo().getTipo().getLimitePercentualDeVagasParaAcrescimo();
-	}
-	
-	public BigDecimal aplicaAcrescimoNaSessao() {
-		double acrescimo = 0;
+	public BigDecimal calculaPrecoFinal() {
+		BigDecimal acrescimo = BigDecimal.ZERO;
 		if (deveAplicarAcrescimoDeVagas())
-			acrescimo += getAcrescimoDeVagas();
-//		if (deveAplicarAcrescimoDeDuracao())
-//			acrescimo += getAcrescimoDeDuracao();
-		return preco.add(preco.multiply(BigDecimal.valueOf(acrescimo)));
+			acrescimo = acrescimo.add(espetaculo.getAcrescimoDeVagas());
+		if (deveAplicarAcrescimoDeDuracao())
+			acrescimo = acrescimo.add(espetaculo.getAcrescimoDeDuracao());
+		System.out.println("Acrescimo: " + acrescimo);
+		return preco.add(preco.multiply(acrescimo));
 	}
-	
+
+	public boolean deveAplicarAcrescimoDeVagas() {
+		return getPercentualIngressosDisponiveis() <= espetaculo.getLimitePercentualDeVagasParaAcrescimo();
+	}
+
 	public boolean deveAplicarAcrescimoDeDuracao() {
-		return getDuracaoEmMinutos() > getEspetaculo().getTipo().getLimiteTempoParaAcrescimo();
-	}
-	private double getAcrescimoDeVagas() {
-		return getEspetaculo().getTipo().getAcrescimoVagasRestantes();
-	}
-	private double getAcrescimoDeDuracao() {
-		return getEspetaculo().getTipo().getAcrescimoDuracao();
+		if (duracaoEmMinutos == null) 
+			return false;
+		else {
+			int limiteTempoParaAcrescimo = espetaculo.getLimiteTempoParaAcrescimo();
+			return duracaoEmMinutos > limiteTempoParaAcrescimo;
+		}
 	}
 }
