@@ -101,12 +101,18 @@ public class Espetaculo {
 	public List<Sessao> criaSessoes(LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
 		// ALUNO: Não apague esse metodo. Esse sim será usado no futuro! ;)
 		
+		
 		List<Sessao> sessoesCriadas = new ArrayList<Sessao>();
 		
 		Sessao sessao = new Sessao();
 		sessao.setInicio(inicio.toDateTime(horario));
-		
 		sessoesCriadas.add(sessao);
+		
+		if (!fim.equals(inicio)) {
+			Sessao sessao2 = new Sessao();
+			sessao2.setInicio(fim.toDateTime(horario));
+			sessoesCriadas.add(sessao2);
+		}
 		
 		return sessoesCriadas;
 	}
