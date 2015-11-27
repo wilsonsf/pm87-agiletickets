@@ -92,21 +92,6 @@ public class EspetaculoTest {
 	}
 
 	@Test
-	public void deveCriarSessoesDiariasEmUmIntervaloDeDoisDias() throws Exception {
-		Espetaculo espetaculo = new Espetaculo();
-		
-		LocalDate diaInicio = new LocalDate(2015, 11, 29);
-		LocalDate diaFim = new LocalDate(2015, 11, 30);
-		LocalTime horario = new LocalTime(22, 0, 0);
-		
-		List<Sessao> sessoesCriadas = espetaculo.criaSessoes(diaInicio, diaFim, horario, Periodicidade.DIARIA);
-		
-		assertEquals(2, sessoesCriadas.size());
-		assertEquals(new DateTime(2015, 11, 29, 22, 0, 0), sessoesCriadas.get(0).getInicio());
-		assertEquals(new DateTime(2015, 11, 30, 22, 0, 0), sessoesCriadas.get(1).getInicio());
-	}
-
-	@Test
 	public void deveCriarSessoesDiariasEmUmIntervaloDeVariosDias() throws Exception {
 		Espetaculo espetaculo = new Espetaculo();
 		
@@ -134,6 +119,22 @@ public class EspetaculoTest {
 		
 		assertEquals(1, sessoesCriadas.size());
 		assertEquals(new DateTime(2015, 11, 30, 22, 0, 0), sessoesCriadas.get(0).getInicio());
+	}
+	
+	@Test
+	public void deveCriarSessoesSemanaisEmUmIntervaloDeVariosDias() throws Exception {
+		Espetaculo espetaculo = new Espetaculo();
+		
+		LocalDate diaInicio = new LocalDate(2015, 11, 30);
+		LocalDate diaFim = diaInicio.plusWeeks(2);
+		LocalTime horario = new LocalTime(22, 0, 0);
+
+		List<Sessao> sessoesCriadas = espetaculo.criaSessoes(diaInicio, diaFim, horario, Periodicidade.SEMANAL);
+		
+		assertEquals(3, sessoesCriadas.size());
+		assertEquals(new DateTime(2015, 11, 30, 22, 0, 0), sessoesCriadas.get(0).getInicio());
+		assertEquals(new DateTime(2015, 11, 7, 22, 0, 0), sessoesCriadas.get(1).getInicio());
+		assertEquals(new DateTime(2015, 11, 14, 22, 0, 0), sessoesCriadas.get(2).getInicio());
 	}
 	
 	private Sessao sessaoComIngressosSobrando(int quantidade) {
