@@ -92,6 +92,25 @@ public class EspetaculoTest {
 				sessoesCriadas.get(0).getInicio());
 	}
 
+	@Test
+	public void deveCriarSessoesEmUmIntervaloDeDias() throws Exception {
+		Espetaculo espetaculo = new Espetaculo();
+		
+		LocalDate diaInicio = new LocalDate(2015, 11, 29);
+		LocalDate diaFim = new LocalDate(2015, 11, 30);
+		LocalTime horario = new LocalTime(22, 0, 0);
+		
+		List<Sessao> sessoesCriadas = espetaculo.criaSessoes(diaInicio, diaFim, horario, Periodicidade.DIARIA);
+		
+		assertEquals(2, sessoesCriadas.size());
+		assertEquals(new DateTime(2015, 11, 29, 22, 0, 0),
+				sessoesCriadas.get(0).getInicio());
+		assertEquals(new DateTime(2015, 11, 30, 22, 0, 0),
+				sessoesCriadas.get(0).getInicio());
+	}
+
+	
+	
 	private Sessao sessaoComIngressosSobrando(int quantidade) {
 		Sessao sessao = new Sessao();
 		sessao.setTotalIngressos(quantidade * 2);
