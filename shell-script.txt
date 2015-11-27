@@ -1,0 +1,5 @@
+sh ~/tomcat-homolog/bin/shutdown.sh
+rm -rf ~/tomcat-homolog/webapps/agiletickets*
+cp target/agiletickets.war ~/tomcat-homolog/webapps
+BUILD_ID="hack feio..." sh ~/tomcat-homolog/bin/startup.sh
+
