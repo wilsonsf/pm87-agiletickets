@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -105,13 +104,14 @@ public class Espetaculo {
 		
 		List<Sessao> sessoesCriadas = new ArrayList<Sessao>();
 		
-		DateTime diaAtual = inicio.toDateTime(horario);
-		for (int i = 0; i < Days.daysBetween(inicio, fim).getDays() + 1; i++) {
+		DateTime diaFinal = fim.toDateTime(horario);
+		for (DateTime diaAtual = inicio.toDateTime(horario); !diaAtual.isAfter(diaFinal); diaAtual = diaAtual.plusDays(periodicidade.getIncremento()) ) {
 			Sessao sessao = new Sessao();
+			
 			sessao.setInicio(diaAtual);
 			
 			sessoesCriadas.add(sessao);
-			diaAtual = diaAtual.plusDays(1);
+			
 		}
 		
 		return sessoesCriadas;
