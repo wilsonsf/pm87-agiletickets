@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class EspetaculoTest {
 
-	@Test
+	@Test(timeout=1000)
 	public void deveInformarSeEhPossivelReservarAQuantidadeDeIngressosDentroDeQualquerDasSessoes() {
 		Espetaculo ivete = new Espetaculo();
 
@@ -22,7 +22,7 @@ public class EspetaculoTest {
 		assertTrue(ivete.Vagas(5));
 	}
 
-	@Test
+	@Test(timeout=1000)
 	public void deveInformarSeEhPossivelReservarAQuantidadeExataDeIngressosDentroDeQualquerDasSessoes() {
 		Espetaculo ivete = new Espetaculo();
 
@@ -33,7 +33,7 @@ public class EspetaculoTest {
 		assertTrue(ivete.Vagas(6));
 	}
 
-	@Test
+	@Test(timeout=1000)
 	public void DeveInformarSeNaoEhPossivelReservarAQuantidadeDeIngressosDentroDeQualquerDasSessoes() {
 		Espetaculo ivete = new Espetaculo();
 
@@ -44,7 +44,7 @@ public class EspetaculoTest {
 		assertFalse(ivete.Vagas(15));
 	}
 
-	@Test
+	@Test(timeout=1000)
 	public void DeveInformarSeEhPossivelReservarAQuantidadeDeIngressosDentroDeQualquerDasSessoesComUmMinimoPorSessao() {
 		Espetaculo ivete = new Espetaculo();
 
@@ -55,7 +55,7 @@ public class EspetaculoTest {
 		assertTrue(ivete.Vagas(5, 3));
 	}
 
-	@Test
+	@Test(timeout=1000)
 	public void DeveInformarSeEhPossivelReservarAQuantidadeExataDeIngressosDentroDeQualquerDasSessoesComUmMinimoPorSessao() {
 		Espetaculo ivete = new Espetaculo();
 
@@ -66,7 +66,7 @@ public class EspetaculoTest {
 		assertTrue(ivete.Vagas(10, 3));
 	}
 
-	@Test
+	@Test(timeout=1000)
 	public void DeveInformarSeNaoEhPossivelReservarAQuantidadeDeIngressosDentroDeQualquerDasSessoesComUmMinimoPorSessao() {
 		Espetaculo ivete = new Espetaculo();
 
@@ -77,8 +77,8 @@ public class EspetaculoTest {
 		assertFalse(ivete.Vagas(5, 3));
 	}
 	
-	@Test
-	public void deveCriarSessaoDeUmDia() throws Exception {
+	@Test(timeout=1000)
+	public void deveCriarSessaoDiariaDeUmDia() throws Exception {
 		Espetaculo espetaculo = new Espetaculo();
 		
 		LocalDate diaInicio = new LocalDate(2015, 11, 30);
@@ -91,7 +91,7 @@ public class EspetaculoTest {
 		assertEquals(new DateTime(2015, 11, 30, 22, 0, 0), sessoesCriadas.get(0).getInicio());
 	}
 
-	@Test
+	@Test(timeout=1000)
 	public void deveCriarSessoesDiariasEmUmIntervaloDeVariosDias() throws Exception {
 		Espetaculo espetaculo = new Espetaculo();
 		
@@ -107,7 +107,7 @@ public class EspetaculoTest {
 		assertEquals(new DateTime(2015, 12, 2, 22, 0, 0), sessoesCriadas.get(3).getInicio());
 	}
 	
-	@Test
+	@Test(timeout=1000)
 	public void deveCriarSessoesSemanaisEmUmIntervaloDeUmDia() throws Exception {
 		Espetaculo espetaculo = new Espetaculo();
 		
@@ -121,7 +121,7 @@ public class EspetaculoTest {
 		assertEquals(new DateTime(2015, 11, 30, 22, 0, 0), sessoesCriadas.get(0).getInicio());
 	}
 	
-	@Test
+	@Test(timeout=1000)
 	public void deveCriarSessoesSemanaisEmUmIntervaloDeVariosDias() throws Exception {
 		Espetaculo espetaculo = new Espetaculo();
 		
@@ -133,8 +133,8 @@ public class EspetaculoTest {
 		
 		assertEquals(3, sessoesCriadas.size());
 		assertEquals(new DateTime(2015, 11, 30, 22, 0, 0), sessoesCriadas.get(0).getInicio());
-		assertEquals(new DateTime(2015, 11, 7, 22, 0, 0), sessoesCriadas.get(1).getInicio());
-		assertEquals(new DateTime(2015, 11, 14, 22, 0, 0), sessoesCriadas.get(2).getInicio());
+		assertEquals(new DateTime(2015, 12, 7, 22, 0, 0), sessoesCriadas.get(1).getInicio());
+		assertEquals(new DateTime(2015, 12, 14, 22, 0, 0), sessoesCriadas.get(2).getInicio());
 	}
 	
 	private Sessao sessaoComIngressosSobrando(int quantidade) {
