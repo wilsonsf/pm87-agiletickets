@@ -11,27 +11,30 @@ public class SessaoTest {
 
 	@Test
 	public void deveVenderIngressosSeAQuantidadeEhMenorQueAsVagas() throws Exception {
-		Sessao sessao = new SessaoTestDataBuilder()
-			.comTotalIngressos(2)
-			.build();
+		Sessao sessao = SessaoTestDataBuilder
+				.umaSessao()
+				.comTotalIngressos(2)
+				.build();
         
         assertEquals(true, sessao.podeReservar(1));
 	}
 
 	@Test
 	public void naoDeveVenderIngressosSeAQuantidadeEhMaiorQueAsVagas() throws Exception {
-		Sessao sessao = new SessaoTestDataBuilder()
-			.comTotalIngressos(2)
-			.build();
+		Sessao sessao = SessaoTestDataBuilder
+				.umaSessao()
+				.comTotalIngressos(2)
+				.build();
 
 		assertEquals(false, sessao.podeReservar(3));
 	}
 
 	@Test
 	public void reservarIngressosDeveDiminuirONumeroDeIngressosDisponiveis() throws Exception {
-		Sessao sessao = new SessaoTestDataBuilder()
-			.comTotalIngressos(5)
-			.build();
+		Sessao sessao = SessaoTestDataBuilder
+				.umaSessao()
+				.comTotalIngressos(5)
+				.build();
 
 		sessao.reserva(3);
 		assertEquals(2, sessao.getIngressosDisponiveis().intValue());
@@ -39,9 +42,10 @@ public class SessaoTest {
 	
 	@Test
 	public void deveReservarTodosIngressosDisponiveis(){
-		Sessao sessao = new SessaoTestDataBuilder()
-			.comTotalIngressos(5)
-			.build();
+		Sessao sessao = SessaoTestDataBuilder
+				.umaSessao()
+				.comTotalIngressos(5)
+				.build();
 		
 		assertTrue(sessao.podeReservar(5));
 		
