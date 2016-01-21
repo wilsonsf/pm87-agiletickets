@@ -11,5 +11,7 @@ public class CalculadoraDePrecos {
 		BigDecimal preco = sessao.calculaPrecoFinal(); 
 
 		return preco.multiply(BigDecimal.valueOf(quantidade));
+		
 	}
+	
 }

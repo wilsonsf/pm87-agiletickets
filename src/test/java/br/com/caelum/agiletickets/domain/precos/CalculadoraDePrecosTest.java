@@ -23,7 +23,7 @@ public class CalculadoraDePrecosTest {
 		
 		assertEquals(0, BigDecimal.valueOf(90.0).compareTo(precoTotal));
 	}
-	
+
 	@Test
 	public void deveAplicar10PorCentoAMaisNosUltimosIngressosQuandoForCinema(){
 		Sessao sessao =	SessaoTestDataBuilder
